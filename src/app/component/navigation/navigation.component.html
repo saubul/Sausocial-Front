@@ -1,0 +1,11 @@
+<nav class = "absolute top-0 right-0 left-0 h-[60px] px-3 flex justify-between items-center text-white bg-sky-300">
+    <span class = "flex items-center">
+        <img [src]="img_src" alt="image" class="object-cover h-10 w-10 mx-2" />
+        <a routerLink="/" class="font-bold py-1 text-lg my-1" style = "font-size: 20px;">{{title}}</a>
+    </span>
+
+    <span>
+        <a routerLink="/login" class = "mr-2 font-bold button-link shadow-lg">Войти</a>
+        <a routerLink="/signUp" class = "mr-2 font-bold sign-up shadow-lg">Регистрация</a>
+    </span>
+</nav>

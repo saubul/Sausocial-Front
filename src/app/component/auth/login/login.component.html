@@ -1,0 +1,58 @@
+<div  class = "max-w-lg container mx-auto mt-64 justify-center">
+
+    <div class="w-full bg-white drop-shadow-lg rounded px-8 pt-6 pb-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white pb-4">
+                Войти
+        </h1>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-semibold mb-2" for="username">
+              Логин
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                   id="username" 
+                   type="text" 
+                   placeholder="Логин"
+                   required
+                   autofocus
+                   formControlName="username">
+            <span *ngIf="!loginForm.get('username')?.valid && loginForm.get('username')?.touched">
+              <p class = "pt-2" style="font-size:small"> 
+                  Пожалуйста, введите логин
+              </p>
+            </span>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password">
+              Пароль
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+                   id = "password" 
+                   type = "password" 
+                   placeholder = "••••••••"
+                   name = "password"
+                   required
+                   formControlName="password">
+            <span *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">
+              <p  style="font-size:small">
+                Пожалуйста, введите пароль
+              </p>
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+              Войти
+            </button>
+            <a class="inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800" routerLink="/signUp">
+              Еще не зарегестрированы?
+            </a>
+          </div>
+          <div *ngIf="this.isError"> 
+              <p>Ошибка авторизации. Пожалуйста проверьте введенные данные</p>
+          </div>
+          <div *ngIf="this.registerSuccessMessage && this.registerSuccessMessage.length > 0">
+              <p class = "mt-4 italic bg-green-200 text-sm border rounded px-2">{{registerSuccessMessage}}</p>
+          </div>
+        </form>
+      </div>
+</div>
