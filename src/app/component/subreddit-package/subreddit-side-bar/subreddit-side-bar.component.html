@@ -1,0 +1,13 @@
+<div class = "max-w-xl container w-full bg-white drop-shadow-lg rounded p-4">
+    <div class = "font-semibold" style = "font-size: 28px;">Темы</div>
+    <hr />
+    <span *ngFor="let subreddit of subreddits">
+        <span>
+            <a routerLink="/view-subreddit/{{subreddit.id}}">{{subreddit.name}}</a>
+            <hr/>
+        </span>
+    </span>
+    <div style="text-align: center" *ngIf="displayViewAll">
+        <a style="font-weight: bold" routerLink="/list-subreddits">View All</a>
+    </div>
+</div>

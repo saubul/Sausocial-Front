@@ -13,6 +13,14 @@ import {  NgxWebstorageModule } from 'ngx-webstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './app/token-interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SubredditSideBarComponent } from './app/component/subreddit-package/subreddit-side-bar/subreddit-side-bar.component';
+import { CreatePostComponent } from './app/component/post-package/create-post/create-post.component';
+import { SideBarComponent } from './app/component/side-bar/side-bar.component';
+import { CreateSubredditComponent } from './app/component/subreddit-package/create-subreddit/create-subreddit.component';
+import { PostComponent } from './app/component/post-package/post/post.component';
+import { ListSubredditComponent } from './app/component/subreddit-package/list-subreddit/list-subreddit.component';
+import { EditorModule } from '@tinymce/tinymce-angular'
 
 @NgModule({
   declarations: [
@@ -20,7 +28,13 @@ import { TokenInterceptor } from './app/token-interceptor';
     NavigationComponent,
     MainComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    PostComponent,
+    SubredditSideBarComponent,
+    CreateSubredditComponent,
+    CreatePostComponent,
+    SideBarComponent,
+    ListSubredditComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +43,9 @@ import { TokenInterceptor } from './app/token-interceptor';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FontAwesomeModule,
+    EditorModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

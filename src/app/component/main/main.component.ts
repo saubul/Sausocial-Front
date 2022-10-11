@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel } from 'src/app/model/PostModel';
-import { PostService } from 'src/app/service/post.service';
 
 @Component({
   selector: 'app-main',
@@ -9,12 +7,8 @@ import { PostService } from 'src/app/service/post.service';
 })
 export class MainComponent implements OnInit {
 
-  posts$: Array<PostModel> = [];
+  constructor() {
 
-  constructor(private postService: PostService) {
-    this.postService.getAllPosts().subscribe(posts => {
-        this.posts$ = posts;
-    })
    }
 
   ngOnInit(): void {
