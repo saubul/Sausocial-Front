@@ -18,9 +18,10 @@ import { SubredditSideBarComponent } from './app/component/subreddit-package/sub
 import { CreatePostComponent } from './app/component/post-package/create-post/create-post.component';
 import { SideBarComponent } from './app/component/side-bar/side-bar.component';
 import { CreateSubredditComponent } from './app/component/subreddit-package/create-subreddit/create-subreddit.component';
-import { PostComponent } from './app/component/post-package/post/post.component';
+import { PostListComponent } from './app/component/post-package/post-list/post-list.component';
 import { ListSubredditComponent } from './app/component/subreddit-package/list-subreddit/list-subreddit.component';
-import { EditorModule } from '@tinymce/tinymce-angular'
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewPostComponent } from './app/component/post-package/view-post/view-post.component'
 
 @NgModule({
   declarations: [
@@ -29,12 +30,13 @@ import { EditorModule } from '@tinymce/tinymce-angular'
     MainComponent,
     LoginComponent,
     SignUpComponent,
-    PostComponent,
+    PostListComponent,
     SubredditSideBarComponent,
     CreateSubredditComponent,
     CreatePostComponent,
     SideBarComponent,
-    ListSubredditComponent
+    ListSubredditComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,
