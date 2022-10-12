@@ -1,25 +1,50 @@
 <div class = "justify-center mt-32 mx-96 grid grid-cols-6 gap-4">
-    <div class = "flex flex-col justify-center items-center col-span-4">
+    <div class = "flex flex-col col-span-4">
         <div class = "w-full">
             <div  class = "my-4 mx-auto justify-center">
               
               <div class="w-full bg-white drop-shadow-lg rounded p-4">
                 <div class = "border-b-2 flex justify-between font-semibold items-center">
-                  <a class = "" style = "font-size: 28px;" [routerLink]="post.url">{{post.subredditName}}</a>
-                  <a class = "" style = "" [routerLink]="post.url">@{{post.username}}</a>
+                  <a class = "" style = "font-size: 28px;" routerLink="">{{post?.subredditName}}</a>
+                  <a class = "" style = "" routerLink="/user/{{post?.username}}">@{{post?.username}}</a>
                 </div>
                 <div class = "flex justify-between font-semibold">
-                  <a class = "" style = "font-size: 20px;" [routerLink]="post.url">{{post.postName}}</a>
+                  <a class = "" style = "font-size: 20px;" [routerLink]="post?.url">{{post?.postName}}</a>
                 </div>
                 <div class = "py-2 pb-2">
                   <a role="button">
-                    <p [innerHtml]="post.description"></p>
+                    <p [innerHtml]="post?.description"></p>
                   </a>
                 </div>
-                <div class = "flex justify-between items-center">
-                  <div class = "flex">
+
+                <div>
+                  <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+                    <div class = "grid grid-cols-12">
+                      <textarea type="text"
+                        class = "shadow appearance-none col-span-11 border rounded py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        [formControlName]="'text'"
+                        placeholder="Написать комментарий.."
+                        required></textarea>
+                          <button class="bg-white h-14 w-14 border-sky-400 text-sky-400 col-span-1  font-semibold rounded focus:outline-none focus:shadow-outline ml-1">
+                            <fa-icon [icon]="arrow"></fa-icon>
+                          </button>
+                    </div>
+                  </form>
+                  <div class = "grid grid-cols-12">
+                    <div class = "border rounded my-2 p-2 col-span-11" *ngFor="let comment of comments">
+                      <div class = "flex flex-col">
+                        <div>
+                          <div class = "flex justify-between">
+                            <a routerLink="/user/comment?.username" class = "font-semibold">@{{comment?.username}}</a>
+                            {{comment?.duration}}
+                          </div>
+                          <p>{{comment?.text}}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
         
         </div>

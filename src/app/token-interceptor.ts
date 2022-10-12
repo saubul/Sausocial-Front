@@ -16,18 +16,22 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
             
+            if (req.url.indexOf('refresh') !== -1) {
+                return next.handle(req);
+            }
             const jwtToken = this.authService.getJwtToken();
             if(jwtToken) {
                 
                 req = this.addToken(req, jwtToken);
-                return next.handle(req).pipe(catchError(error => {
-                    if(error instanceof HttpErrorResponse && error.status === 403) {
-                        return this.handleAuthErrors(req, next);
-                    } else {
-                        console.log(error)
-                        return throwError(() => {new Error(error)});
-                    }
-                }))
+                return next.handle(req).pipe(
+                    catchError(error => {
+                        if(error instanceof HttpErrorResponse && error.status === 403) {
+                            return this.handleAuthErrors(req, next);
+                        } else {
+                            console.log(error)
+                            return throwError(() => {new Error(error)});
+                        }
+                    }))
             }
             
             return next.handle(req)

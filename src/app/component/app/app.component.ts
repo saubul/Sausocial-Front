@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from 'src/app/service/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'INLINE';
+
+  constructor(private navigationService: NavigationService) {
+
+  }
+
+  showMenu() {
+    this.navigationService.isShowMenu.next(false)
+  }
 }

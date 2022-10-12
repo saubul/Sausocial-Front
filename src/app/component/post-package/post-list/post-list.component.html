@@ -16,16 +16,16 @@
           </a>
         </div>
         <div class = "flex justify-between items-center">
-          <div class = "flex">
-            <div class = "border rounded shadow-md mr-1 px-1">
-                <a class = "px-1" role="button">
-                    <fa-icon class = "" [icon]="comments"></fa-icon>
+          <div class = "flex ">
+            <div class = "border rounded shadow-md mr-1 px-1 hover:bg-gray-50">
+                <a class = "px-1" role="button" routerLink="/view-post/{{post.id}}">
+                    <fa-icon class = "text-gray-400" [icon]="comments"></fa-icon>
                     ({{post.commentCount}})
                 </a>
             </div>
-            <div class = "border rounded shadow-md px-1">
-                <a class = "px-1" role="button">
-                    <fa-icon [icon]="thumbsUp"></fa-icon>
+            <div class = "border rounded shadow-md px-1 hover:bg-gray-50">
+                <a class = "px-1 " role="button">
+                    <fa-icon [icon]="thumbsUp" class = "text-gray-400 "></fa-icon>
                     ({{post.voteCount}})
                 </a>
             </div>
