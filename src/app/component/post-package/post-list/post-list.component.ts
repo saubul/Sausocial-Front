@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PostModel } from 'src/app/model/PostModel';
 import { PostService } from 'src/app/service/post.service';
 import { faComments, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +14,7 @@ export class PostListComponent implements OnInit {
   thumbsUp = faThumbsUp;
   comments = faComments;
 
-  posts$: Array<PostModel> = [];
+  @Input() posts$: Array<PostModel> = [];
 
   constructor(private postService: PostService, private router: Router) {
     this.postService.getAllPosts().subscribe(posts => {

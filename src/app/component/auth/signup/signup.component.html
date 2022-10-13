@@ -4,7 +4,7 @@
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Создать аккаунт
             </h1>
-            <form class="space-y-4 md:space-y-6" [formGroup]="signupForm" (ngSubmit)="signUp()">
+            <form  class="space-y-4 md:space-y-6" [formGroup]="signupForm" (ngSubmit)="signUp()">
                 <div>
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Имя пользователя</label>
                     <input type="text" 
@@ -12,9 +12,8 @@
                            id="username" 
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                            placeholder="Имя пользователя" 
-                           required
                            autofocus
-                           formControlName="username">
+                           formControlName="username"/>
                     <span *ngIf="!signupForm.get('username')?.valid && signupForm.get('username')?.touched">
                         <p class = "pt-2" style="font-size:small">
                             Пожалуйста, введите имя пользователя
@@ -23,14 +22,10 @@
                 </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Почта</label>
-                    <input type="email" 
-                           name="email" 
-                           id="email" 
+                    <input id="email" 
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                            placeholder="name@company.com" 
-                           required
-                           autofocus
-                           formControlName="email">
+                           formControlName="email"/>
                     <span *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">
                         <p class = "pt-2" style="font-size:small">
                             Пожалуйста, введите почту
@@ -39,28 +34,22 @@
                 </div>
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Пароль</label>
-                    <input type="password" 
-                           name="password" 
-                           id="password" 
+                    <input id="password" 
                            placeholder="••••••••" 
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                           required
-                           formControlName="password">
+                           formControlName="password"/>
                     <span *ngIf="!signupForm.get('password')?.valid && signupForm.get('password')?.touched">
                         <p class = "pt-2" style="font-size:small">
-                            Пожалуйста, введите пароль
+                            Пожалуйста, введите корректный пароль
                          </p>
                     </span>
                 </div>
                 <div>
                     <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Повторите пароль</label>
-                    <input type="password" 
-                           name="confirm-password" 
-                           id="confirm-password" 
+                    <input id="confirm-password" 
                            placeholder="••••••••" 
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
-                           required
-                           formControlName="repeatPassword">
+                           formControlName="repeatPassword"/>
                     <span *ngIf="!signupForm.get('repeatPassword')?.valid && signupForm.get('repeatPassword')?.touched">
                         <p class = "pt-2" style="font-size:small">
                             Пожалуйста, повторите пароль
@@ -72,6 +61,11 @@
                         </p>
                     </span>
                 </div>
+                <span *ngIf="fieldsError">
+                    <p class = "pt-2" style="font-size:small">
+                        Пожалуйста, введите все поля
+                    </p>
+                </span>
                 <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Создать аккаунт</button>
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                     Уже есть аккаунт? <a routerLink="/login" class="font-medium text-primary-600 hover:underline text-blue-500">Войти</a>

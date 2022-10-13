@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {  NgxWebstorageModule } from 'ngx-webstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './app/token-interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SubredditSideBarComponent } from './app/component/subreddit-package/subreddit-side-bar/subreddit-side-bar.component';
@@ -47,7 +46,6 @@ import { UserProfileComponent } from './app/component/user-profile/user-profile.
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     FontAwesomeModule,
     EditorModule
   ],

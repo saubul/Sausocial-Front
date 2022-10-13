@@ -9,11 +9,14 @@ import { PostModel } from '../model/PostModel';
 })
 export class PostService {
 
-
   constructor(private httpClient: HttpClient) { }
 
+  getAllPostsByUser(username: string) {
+    return this.httpClient.get<Array<PostModel>>('http://localhost:8080/api/post/getAllPosts/' + username);
+  }
+
   getPost(postId: number): Observable<PostModel> {
-    return this.httpClient.get<PostModel>('http://localhost:8080/api/post/' + postId)
+    return this.httpClient.get<PostModel>('http://localhost:8080/api/post/' + postId);
   }
 
   getAllPosts(): Observable<Array<PostModel>> {
@@ -21,7 +24,7 @@ export class PostService {
   }
 
   createPost(postPayload: CreatePostPayload): Observable<PostModel> {
-    return this.httpClient.post<PostModel>('http://localhost:8080/api/post/create-post', postPayload)
+    return this.httpClient.post<PostModel>('http://localhost:8080/api/post/create-post', postPayload);
   }
 }
 

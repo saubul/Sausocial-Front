@@ -11,9 +11,9 @@ import { NavigationService } from 'src/app/service/navigation.service';
 })
 export class NavigationComponent implements OnInit {
 
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = false;
   username: string;
-  isShowMenu: boolean;
+  isShowMenu: boolean = false;
 
   faUser = faUser;
 
@@ -24,26 +24,28 @@ export class NavigationComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private navigationService: NavigationService) {
-                this.navigationService.isShowMenu.subscribe(data => {
-                  this.isShowMenu = this.navigationService.isShowMenu.getValue()
-                })
-                this.authService.getIsLoggedIn().subscribe(data => {
-                  this.isLoggedIn = this.authService.getIsLoggedIn().getValue()
-                })
-               }
+      this.navigationService.isShowMenu.subscribe(data => {
+        this.isShowMenu = this.navigationService.isShowMenu.getValue()
+      })
+      this.authService.getIsLoggedIn().subscribe(data => {
+       this.isLoggedIn = this.authService.getIsLoggedIn().getValue()
+      })
+  }
 
   ngOnInit(): void {
-    
-    this.username = this.authService.getUsername();
     this.isShowMenu = false;
+    this.username = this.authService.getUsername();
   }
   
 
   goToUserProfile() {
+    this.navigationService.showMenu();
     this.router.navigateByUrl('/user-profile' + this.username)
+    
   }
 
   logout() {
+    this.navigationService.showMenu();
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigateByUrl('/');

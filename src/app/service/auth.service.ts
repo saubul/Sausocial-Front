@@ -11,7 +11,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 })
 export class AuthService {
 
-  private isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.localStorage.retrieve('accessToken'));
 
   constructor(private httpClient: HttpClient, private localStorage: LocalStorageService) {
    }
@@ -31,7 +31,7 @@ export class AuthService {
                 this.localStorage.store('refreshToken', response.refreshToken);
                 this.localStorage.store('username', response.username);
                 this.localStorage.store('expiresAt', response.expiresAt);
-                this.isLoggedIn.next(true);
+                this.isLoggedIn.next(this.localStorage.retrieve('accessToken'))
                 return true;
               })
             );
@@ -42,26 +42,29 @@ export class AuthService {
     this.localStorage.clear('username');
     this.localStorage.clear('refreshToken');
     this.localStorage.clear('expiresAt');
-    this.isLoggedIn.next(false);
+    this.isLoggedIn.next(this.localStorage.retrieve('accessToken'))
   }
 
-  refreshToken() {
+  refreshToken(): Observable<LoginResponsePayload> {
       let jwtHeader = new HttpHeaders().set('Authorization', 'Bearer ' + this.getRefreshToken())
-      return this.httpClient.get<LoginResponsePayload>('http://localhost:8080/api/token/refresh', {headers: jwtHeader})
+      return this.httpClient.get<LoginResponsePayload>('http://localhost:8080/api/auth/refreshToken', {headers: jwtHeader})
                             .pipe(tap(data => {
-
                               this.localStorage.clear('accessToken');
                               this.localStorage.clear('expiresAt');
 
                               this.localStorage.store('accessToken', data.accessToken);
                               this.localStorage.store('expiresAt', data.expiresAt);
+
                             }))
   }
   getUsername(): string {
     return this.localStorage.retrieve('username')
   }
   getRefreshToken() {
-    this.localStorage.retrieve('refreshToken')
+    return this.localStorage.retrieve('refreshToken')
+  }
+  getExpiresAt() {
+    return this.localStorage.retrieve('expiresAt')
   }
   getJwtToken() {
     return this.localStorage.retrieve('accessToken');

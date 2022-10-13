@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { SignupRequestPayload } from './signup-request.payload';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,9 +13,9 @@ export class SignUpComponent implements OnInit {
 
   signupRequestPayload: SignupRequestPayload;
   signupForm: FormGroup;
+  fieldsError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router,
-              private toastr: ToastrService) { 
+  constructor(private authService: AuthService, private router: Router) { 
     this.signupRequestPayload = {
       username: '',
       password: '',
@@ -33,18 +32,18 @@ export class SignUpComponent implements OnInit {
       .subscribe(data => {
         this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
       }, error => {
+        this.fieldsError = true
         console.log(error);
-        this.toastr.error('Ошибка регистрации! Попробуйте еще раз');
       });
   }
 
 
   ngOnInit(): void {
     this.signupForm  = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-      repeatPassword: new FormControl('', Validators.required)
+      username: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      repeatPassword: new FormControl(null, Validators.required)
     })
   }
 

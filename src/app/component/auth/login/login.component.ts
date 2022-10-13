@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { LoginRequestPayload } from './login-request.payload';
-import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
 @Component({
@@ -18,8 +17,7 @@ export class LoginComponent implements OnInit {
   registerSuccessMessage: string;
   isError: boolean;
 
-  constructor(private authService: AuthService, private router: Router,
-    private toastr: ToastrService, private activatedRoute: ActivatedRoute) {
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.loginRequestPayload = {
       username: '',
       password: ''
@@ -35,8 +33,7 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe(params => {
         if (params.registered !== undefined && params.registered === 'true') {
-          this.toastr.success('Успешная регистрация!');
-          this.registerSuccessMessage = 'Пожалуйста, проверьте вашу электронную почту '
+          this.registerSuccessMessage = 'Успешная регистрация. Пожалуйста, проверьте вашу электронную почту '
             + ', чтобы активировать аккаунт, прежде чем войти!';
         }
       });
@@ -52,7 +49,6 @@ export class LoginComponent implements OnInit {
         if(data) {
           this.isError = false;
           this.router.navigateByUrl('/');
-          this.toastr.success('Успешная авторизация')
         } else {
           this.isError = true;
         }
