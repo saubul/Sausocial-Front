@@ -24,7 +24,6 @@ export class UserProfileComponent implements OnInit {
               private commentService: CommentService) {
 
     this.username = this.activateRoute.snapshot.params.username;
-
     this.postService.getAllPostsByUser(this.username).subscribe(data => {
       this.posts = data;
       this.postsLength = data.length;

@@ -75,6 +75,7 @@ export class AuthService {
   }
 
   getIsLoggedIn(): BehaviorSubject<boolean> {
+    console.log(this.isLoggedIn.value)
     return this.isLoggedIn;
   } 
 

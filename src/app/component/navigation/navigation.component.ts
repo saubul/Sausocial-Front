@@ -39,9 +39,7 @@ export class NavigationComponent implements OnInit {
   
 
   goToUserProfile() {
-    this.navigationService.showMenu();
     this.router.navigateByUrl('/user-profile' + this.username)
-    
   }
 
   logout() {
@@ -52,6 +50,7 @@ export class NavigationComponent implements OnInit {
   }
 
   showMenu() {
+    this.username = this.authService.getUsername();
     this.navigationService.showMenu();
   }
 

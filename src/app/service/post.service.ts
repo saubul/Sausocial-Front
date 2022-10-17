@@ -12,7 +12,7 @@ export class PostService {
   constructor(private httpClient: HttpClient) { }
 
   getAllPostsByUser(username: string) {
-    return this.httpClient.get<Array<PostModel>>('http://localhost:8080/api/post/getAllPosts/' + username);
+    return this.httpClient.get<Array<PostModel>>('http://localhost:8080/api/post/getAllPostsByUser/' + username);
   }
 
   getPost(postId: number): Observable<PostModel> {

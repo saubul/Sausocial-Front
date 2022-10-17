@@ -38,8 +38,16 @@
               <div class="py-1" role="none">
                 <div class = "font-semibold text-black px-4 py-2 text-sm">@{{username}}</div>
                 <hr/>
-                <a routerLink="/user-profile/{{username}}" class="text-gray-700 block px-4 py-2 text-sm bg-white hover:bg-gray-50 " role="menuitem" id="menu-item-0">Профиль</a>
-                <a routerLink="" class="text-gray-700 block px-4 py-2 text-sm bg-white hover:bg-gray-50" role="menuitem" id="menu-item-1">Поддержка</a>
+                <a routerLink="/user-profile/{{username}}" 
+                   class="text-gray-700 block px-4 py-2 text-sm bg-white hover:bg-gray-50 " 
+                   role="menuitem" 
+                   id="menu-item-0" 
+                   (click)="showMenu()">Профиль</a>
+                <a routerLink="" 
+                   class="text-gray-700 block px-4 py-2 text-sm bg-white hover:bg-gray-50" 
+                   role="menuitem" 
+                   id="menu-item-1"
+                   (click)="showMenu()">Поддержка</a>
                 <hr/>
                 <button type="submit" 
                         class="text-gray-700 block w-full px-4 py-2 text-left text-sm bg-white hover:bg-gray-50" 
