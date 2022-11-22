@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { LoginRequestPayload } from '../component/auth/login/login-request.payload';
 import { LoginResponsePayload } from '../component/auth/login/login-response.payload';
 import { LocalStorageService } from 'ngx-webstorage';
+import { server_url } from 'src/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     let body = `username=${loginRequestPayload.username}&password=${loginRequestPayload.password}`;
-    return this.httpClient.post("http://localhost:8080/api/auth/login", body, {headers: headers})
+    return this.httpClient.post(server_url + "/api/auth/login", body, {headers: headers})
             .pipe(
               map(data => {
                 let tokens = JSON.parse(JSON.stringify(data))
@@ -47,7 +48,7 @@ export class AuthService {
 
   refreshToken(): Observable<LoginResponsePayload> {
       let jwtHeader = new HttpHeaders().set('Authorization', 'Bearer ' + this.getRefreshToken())
-      return this.httpClient.get<LoginResponsePayload>('http://localhost:8080/api/auth/refreshToken', {headers: jwtHeader})
+      return this.httpClient.get<LoginResponsePayload>(server_url + '/api/auth/refreshToken', {headers: jwtHeader})
                             .pipe(tap(data => {
                               this.localStorage.clear('accessToken');
                               this.localStorage.clear('expiresAt');
@@ -71,11 +72,10 @@ export class AuthService {
   }
 
   signUp(signupRequestPayload: SignupRequestPayload): Observable<any> {
-    return this.httpClient.post("http://localhost:8080/api/auth/signUp", signupRequestPayload, {responseType: 'text'})
+    return this.httpClient.post(server_url + "/api/auth/signUp", signupRequestPayload, {responseType: 'text'})
   }
 
   getIsLoggedIn(): BehaviorSubject<boolean> {
-    console.log(this.isLoggedIn.value)
     return this.isLoggedIn;
   } 
 

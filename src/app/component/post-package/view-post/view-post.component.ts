@@ -6,8 +6,12 @@ import { PostModel } from 'src/app/model/PostModel';
 import { CommentService } from 'src/app/service/comment.service';
 import { PostService } from 'src/app/service/post.service';
 import { CommentPayload } from './comment.payload';
-import { faArrowCircleRight, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleRight, faArrowRight, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { formatDate } from '@angular/common';
+import { AuthService } from 'src/app/service/auth.service';
+import { VoteService } from 'src/app/service/vote.service';
+import { VotePayload } from './vote.payload';
+import { VoteType } from './vote-type';
 
 @Component({
   selector: 'app-view-post',
@@ -15,34 +19,52 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./view-post.component.css']
 })
 export class ViewPostComponent implements OnInit {
-
+  thumbsUp = faThumbsUp;
   postId: number;
   post: PostModel;
   commentForm: FormGroup;
   commentPayload: CommentPayload;
   comments: CommentPayload[];
+  isLiked: boolean;
 
   arrow = faArrowCircleRight;
+
+  voteForm: FormGroup
+  votePayload: VotePayload
+  voteNumber: number
+
+  usernameMatch: boolean
 
   constructor(private postService: PostService, 
               private activateRoute: ActivatedRoute,
               private commentService: CommentService,
               private router: Router,
-              private localStorage: LocalStorageService) {
+              private localStorage: LocalStorageService,
+              private authService: AuthService,
+              private voteService: VoteService) {
+    
     this.postId = this.activateRoute.snapshot.params.id;
-
+    this.isLikedByUser()
     this.commentForm = new FormGroup({
       text: new FormControl('', Validators.required)
     });
+
+
+    this.voteForm = new FormGroup({
+
+    })
 
     this.commentPayload = {
       text: '',
       postId: this.postId,
       username: '',
-      duration: new Date()
+      dateCreated: new Date()
     }
 
-    
+    this.votePayload = {
+      voteType: VoteType.NEUTRAL,
+      postId: 1
+    }
    }
 
   ngOnInit(): void {
@@ -51,19 +73,57 @@ export class ViewPostComponent implements OnInit {
   }
 
   postComment() {
-    this.commentPayload.text = this.commentForm.get('text')?.value;
-    this.commentPayload.username = this.localStorage.retrieve('username');
-    this.commentService.postComment(this.commentPayload).subscribe(data => {
-      this.commentForm.get('text')?.setValue('');
-      this.getCommentsByPost();
-    }, error => {
-      console.log(error)
-    })
+    if(!this.authService.getIsLoggedIn().value) {
+      this.router.navigateByUrl('/login')
+    } else {
+
+      this.commentPayload.text = this.commentForm.get('text')?.value;
+      this.commentPayload.username = this.localStorage.retrieve('username');
+      this.commentService.postComment(this.commentPayload).subscribe(data => {
+        this.commentForm.get('text')?.setValue('');
+        this.getCommentsByPost();
+      }, error => {
+        console.log(error)
+      })
+    }
+  }
+
+  votePost() {
+    if(!this.authService.getIsLoggedIn().value) {
+      this.router.navigateByUrl('/login')
+    } else {
+      var username = this.localStorage.retrieve('username')
+      this.votePayload.postId = this.postId
+      this.votePayload.voteType = VoteType.UPVOTE
+      this.voteService.vote(this.votePayload).subscribe(data => {
+          this.getPostById()
+          this.isLikedByUser()
+      },error => {
+        console.log(error)
+      })
+    }
+  }
+
+  deletePost(postId: number) {
+    this.postService.deletePostById(postId)
+  }
+
+  private checkUsernameMatch(): boolean {
+    if(!this.authService.getIsLoggedIn().value) {
+      return false;
+    } else {
+      let usernameStorage = this.localStorage.retrieve('username')
+      if(usernameStorage === this.post.username) {
+        return true;
+      }
+      return false;
+    }
   }
 
   private getPostById() {
     this.postService.getPost(this.postId).subscribe(data => {
       this.post = data;
+      this.usernameMatch = this.checkUsernameMatch();
     }, error => {
       console.log(error)
     })
@@ -78,4 +138,17 @@ export class ViewPostComponent implements OnInit {
       return new Error(error)
     })
   }
+
+  private isLikedByUser() {
+    if(!this.authService.getIsLoggedIn().value) {
+      this.isLiked = false;
+    } else {
+      this.voteService.isLikedPostByUser(this.postId, this.localStorage.retrieve('username')).subscribe(data => {
+        this.isLiked = data;
+      }, error => {
+        console.log(error)
+      });
+    }
+  }
+
 }

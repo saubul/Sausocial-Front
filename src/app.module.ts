@@ -21,7 +21,11 @@ import { PostListComponent } from './app/component/post-package/post-list/post-l
 import { ListSubredditComponent } from './app/component/subreddit-package/list-subreddit/list-subreddit.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewPostComponent } from './app/component/post-package/view-post/view-post.component';
-import { UserProfileComponent } from './app/component/user-profile/user-profile.component'
+import { UserProfileComponent } from './app/component/user-profile/user-profile.component';
+import { FilterPostsComponent } from './app/component/post-package/filter-posts/filter-posts.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormField, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { UserProfileComponent } from './app/component/user-profile/user-profile.
     SideBarComponent,
     ListSubredditComponent,
     ViewPostComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    FilterPostsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,17 @@ import { UserProfileComponent } from './app/component/user-profile/user-profile.
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     FontAwesomeModule,
-    EditorModule
+    EditorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  exports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

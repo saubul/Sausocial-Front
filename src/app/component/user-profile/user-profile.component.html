@@ -5,10 +5,16 @@
           <img src="/assets/img/icon.png" class = "rounded-full w-36 h-36"/>
           <p class = "font-semibold pl-4" >{{username}}</p>
         </div>
+        <div class = "flex-1">
+          <p>Имя: {{user.name}}</p>
+          <p>Фамилия: {{user.surname}}</p>
+          <p>Страна: {{user.country}}</p>
+          <p>Дата рождения: {{user.birthday}}</p>
+        </div>
       </div>
       <div class = " border rounded px-6 py-4  col-span-4 shadow-lg">
-        <p class = "font-semibold" style = "font-size: 28px;">Ваши записи</p>
-        <p *ngIf="posts && posts.length === 0" class = "italic text-gray-500">Пока нет записей</p>
+        <p class = "font-semibold" style = "font-size: 28px;">Публикации</p>
+        <p *ngIf="posts && posts.length === 0" class = "italic text-gray-500">Пока нет публикаций</p>
         <app-post *ngIf="posts && posts.length !== 0" [posts$]="posts" class="flex flex-col justify-center items-center"></app-post>
       </div>
   </div>

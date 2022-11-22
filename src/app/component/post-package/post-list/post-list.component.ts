@@ -13,18 +13,28 @@ export class PostListComponent implements OnInit {
 
   thumbsUp = faThumbsUp;
   comments = faComments;
-
   @Input() posts$: Array<PostModel> = [];
+  usernameMatch = false;
 
-  constructor(private postService: PostService, private router: Router) {
-    this.postService.getAllPosts().subscribe(posts => {
-        this.posts$ = posts;
-    })
+  constructor(private postService: PostService, 
+              private router: Router) {
+
+    
    }
 
   ngOnInit(): void {
+    if (this.posts$.length === 0) {
+      this.postService.getAllPosts().subscribe(posts => {
+        this.posts$ = posts;
+      })
+    }
   }
   goToPost(postId: number) {
     this.router.navigateByUrl('/view-post/' + postId)
   }
+
+  deletePost(postId: number) {
+    this.postService.deletePostById(postId)
+  }
+
 }

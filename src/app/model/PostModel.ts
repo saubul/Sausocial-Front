@@ -2,11 +2,10 @@
 export class PostModel {
     id: number;
     postName: string;
-    url: string;
-    description: string;
+    text: string;
     voteCount: number;
     username: string;
     subredditName: string;
-    duration: string;
+    dateCreated: string;
     commentCount: number;
 }

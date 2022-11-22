@@ -2,6 +2,7 @@
     <span class = "flex items-center">
         <img [src]="img_src" alt="image" class="object-cover h-11 w-11 mx-2" />
         <a routerLink="/" class="font-bold py-1 text-lg my-1" style = "font-size: 22px;">{{title}}</a>
+        <!--
         <form class = "pl-6">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
             <div class="relative">
@@ -19,6 +20,7 @@
                 </button>
             </div>
         </form>
+        -->
     </span>
 
     <div *ngIf="isLoggedIn">

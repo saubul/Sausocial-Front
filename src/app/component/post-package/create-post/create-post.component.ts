@@ -22,7 +22,6 @@ export class CreatePostComponent implements OnInit {
               private localStorage: LocalStorageService) {
     this.postPayload = {
       postName: '',
-      url: '',
       description: '',
       subredditName: '',
       username: ''
@@ -47,7 +46,6 @@ export class CreatePostComponent implements OnInit {
   createPost() {
     this.postPayload.postName = this.createPostForm.get('postName')?.value;
     this.postPayload.subredditName = this.createPostForm.get('subredditName')?.value;
-    this.postPayload.url = this.createPostForm.get('url')?.value;
     this.postPayload.description = this.createPostForm.get('description')?.value;
     this.postPayload.username = this.localStorage.retrieve('username')
 
