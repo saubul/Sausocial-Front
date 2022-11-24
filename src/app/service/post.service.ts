@@ -28,13 +28,9 @@ export class PostService {
     return this.httpClient.post<PostModel>(server_url + '/api/post/create-post', postPayload);
   }
 
-  deletePostById(postId: number) {
+  deletePostById(postId: number): Observable<Object> {
     let params = new HttpParams().append('postId', postId)
-    this.httpClient.delete(server_url + '/api/post/delete', {params: params}).subscribe(data=>{
-
-    },error => {
-      console.log(error)
-    });
+    return this.httpClient.delete(server_url + '/api/post/delete', {params: params})
   }
 }
 

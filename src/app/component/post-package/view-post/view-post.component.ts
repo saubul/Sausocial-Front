@@ -6,8 +6,7 @@ import { PostModel } from 'src/app/model/PostModel';
 import { CommentService } from 'src/app/service/comment.service';
 import { PostService } from 'src/app/service/post.service';
 import { CommentPayload } from './comment.payload';
-import { faArrowCircleRight, faArrowRight, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import { formatDate } from '@angular/common';
+import { faArrowCircleRight, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from 'src/app/service/auth.service';
 import { VoteService } from 'src/app/service/vote.service';
 import { VotePayload } from './vote.payload';
@@ -105,7 +104,12 @@ export class ViewPostComponent implements OnInit {
   }
 
   deletePost(postId: number) {
-    this.postService.deletePostById(postId)
+    this.postService.deletePostById(postId).subscribe({
+      next: () => { },
+      error: (error) => { this.router.navigateByUrl('/');
+      console.log(error)}
+    });
+    
   }
 
   private checkUsernameMatch(): boolean {
