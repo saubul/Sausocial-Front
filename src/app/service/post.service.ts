@@ -32,5 +32,15 @@ export class PostService {
     let params = new HttpParams().append('postId', postId)
     return this.httpClient.delete(server_url + '/api/post/delete', {params: params})
   }
+
+  filterPostsBySubscribed(username: string, filterStatus: string): Observable<Array<PostModel>> {
+    let params = new HttpParams().append('username', username).append('filterStatus', filterStatus)
+    return this.httpClient.get<Array<PostModel>>(server_url + '/api/post/filter', {params: params})
+  }
+
+  getAllPostsByStringContains(str: string): Observable<Array<PostModel>> {
+    let params = new HttpParams().append('string', str)
+    return this.httpClient.get<Array<PostModel>>(server_url + '/api/post/contains', {params: params})
+  }
 }
 

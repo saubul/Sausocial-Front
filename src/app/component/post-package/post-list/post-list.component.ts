@@ -23,7 +23,7 @@ export class PostListComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if (this.posts$.length === 0) {
+    if (this.posts$ === undefined || this.posts$.length === 0) {
       this.postService.getAllPosts().subscribe(posts => {
         this.posts$ = posts;
       })

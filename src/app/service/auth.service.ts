@@ -24,15 +24,13 @@ export class AuthService {
             .pipe(
               map(data => {
                 let tokens = JSON.parse(JSON.stringify(data))
-                let response: LoginResponsePayload = new LoginResponsePayload(tokens['accessToken'], 
-                                                                              tokens['refreshToken'],
-                                                                              tokens['username'],
-                                                                              tokens['expiresAt']);
-                this.localStorage.store('accessToken', response.accessToken);
-                this.localStorage.store('refreshToken', response.refreshToken);
-                this.localStorage.store('username', response.username);
-                this.localStorage.store('expiresAt', response.expiresAt);
+
+                this.localStorage.store('accessToken', tokens['accessToken']);
+                this.localStorage.store('refreshToken', tokens['refreshToken']);
+                this.localStorage.store('username', tokens['username']);
+                this.localStorage.store('expiresAt', tokens['expiresAt']);
                 this.isLoggedIn.next(this.localStorage.retrieve('accessToken'))
+                
                 return true;
               })
             );
